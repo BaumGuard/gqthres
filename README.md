@@ -1,5 +1,6 @@
 # gqthres
-Resolver for locators, callsigns and coordinates
+Resolver for locators, callsigns and coordinates<br />
+Click [here](https://github.com/BaumGuard/qthres) to get to the former command line tool `qthres`.
 <br />
 ## Functions<br />
 - Conversion between Maidenhead locators and coordinates
