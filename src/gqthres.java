@@ -265,8 +265,9 @@ public class gqthres extends Frame implements ActionListener {
 		//Preparing the GUI with the user's preferences (gqthres.properties)
 		FileInputStream fis = null;
 		Properties prop = new Properties();
+		String homePath = System.getProperty("user.dir");
 		try {
-			fis = new FileInputStream("gqthres.properties");
+			fis = new FileInputStream(homePath+"/gqthres/gqthres.properties");
 			prop.load(fis);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
