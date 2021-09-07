@@ -260,7 +260,7 @@ public class gqthres extends Frame implements ActionListener {
 		frame.setVisible(true);
 
 		frame.setResizable(false);
-
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//Preparing the GUI with the user's preferences (gqthres.properties)
 		FileInputStream fis = null;
