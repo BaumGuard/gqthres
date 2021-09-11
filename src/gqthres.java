@@ -46,9 +46,9 @@ public class gqthres extends Frame implements ActionListener {
 		}
 
 			csindex = html.indexOf("Latitude");
-			String latqrzcq = html.substring(csindex + 45, csindex+55);
+			String latqrzcq = html.substring(csindex + 45, csindex+54);
 			csindex=html.indexOf("Longitude");
-			String lonqrzcq = html.substring(csindex +46, csindex+56);
+			String lonqrzcq = html.substring(csindex +46, csindex+55);
 			
 		return latqrzcq+","+lonqrzcq;
 	}
@@ -240,11 +240,11 @@ public class gqthres extends Frame implements ActionListener {
 		gbc.gridy = 4;
 		panel.add(mapButton, gbc);
 
-		gbc.gridx = 2;
+		gbc.gridx = 1;
 		gbc.gridy = 4;
 		panel.add(qrzButton, gbc);
 
-		gbc.gridx = 1;
+		gbc.gridx = 2;
 		gbc.gridy = 4;
 		panel.add(qrzcqButton, gbc);
 
