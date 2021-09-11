@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -32,11 +33,10 @@ public class gqthres extends Frame implements ActionListener {
 	
 	
 	// Downloading the callsign's page from qrzcq.com
-	public static String GetLocator(String callsign) {
+	public static String GetCoordinates(String callsign) {
 
 		String url = "https://www.qrzcq.com/call/" + callsign;
 		String html = null;
-		String locator;
 		int csindex;
 
 		try {
@@ -45,17 +45,12 @@ public class gqthres extends Frame implements ActionListener {
 			// TODO Auto-generated catch block
 		}
 
-		// Extracting the locator
-		if (html.contains("locator supplied by user") == true) {
-			csindex = html.indexOf("locator supplied by user");
-			locator = html.substring(csindex + 26, csindex + 32);
-		}
-
-		else {
-			csindex = html.indexOf("Locator");
-			locator = html.substring(csindex + 44, csindex + 50);
-		}
-		return locator;
+			csindex = html.indexOf("Latitude");
+			String latqrzcq = html.substring(csindex + 45, csindex+55);
+			csindex=html.indexOf("Longitude");
+			String lonqrzcq = html.substring(csindex +46, csindex+56);
+			
+		return latqrzcq+","+lonqrzcq;
 	}
 
 	
@@ -200,7 +195,6 @@ public class gqthres extends Frame implements ActionListener {
 		qrzButton = new JButton("Show on qrz.com");
 		qrzcqButton = new JButton("Show on qrzcq.com");
 
-
 		//Aligning the elements in the window
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -246,11 +240,11 @@ public class gqthres extends Frame implements ActionListener {
 		gbc.gridy = 4;
 		panel.add(mapButton, gbc);
 
-		gbc.gridx = 1;
+		gbc.gridx = 2;
 		gbc.gridy = 4;
 		panel.add(qrzButton, gbc);
 
-		gbc.gridx = 2;
+		gbc.gridx = 1;
 		gbc.gridy = 4;
 		panel.add(qrzcqButton, gbc);
 
@@ -262,12 +256,16 @@ public class gqthres extends Frame implements ActionListener {
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		String homePath = System.getProperty("user.home");
+		ImageIcon icon = new ImageIcon(homePath+"/gqthres/icon.png");
+		frame.setIconImage(icon.getImage());
+		
 		//Preparing the GUI with the user's preferences (gqthres.properties)
 		FileInputStream fis = null;
 		Properties prop = new Properties();
-		String homePath = System.getProperty("user.dir");
+		
 		try {
-			fis = new FileInputStream(homePath+"/gqthres.properties");
+			fis = new FileInputStream(homePath+"/gqthres/gqthres.properties");
 			prop.load(fis);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -327,14 +325,14 @@ public class gqthres extends Frame implements ActionListener {
 				}
 				
 				if (InputBox.getSelectedItem().equals("Callsign")) {
-					String locInput = GetLocator(inputField.getText());
+					String coordsInput = GetCoordinates(inputField.getText());
 
-					String target[] = Convert(locInput).split(",");
+					String target[] = coordsInput.split(",");
 					double targetLat = Double.parseDouble(target[0]);
 					double targetLon = Double.parseDouble(target[1]);
 
-					locOutField.setText(locInput);
-					coordOutField.setText(Convert(locInput));
+					locOutField.setText(CoordsToLoc(targetLat, targetLon));
+					coordOutField.setText(coordsInput);
 					double dist = Distance(latitude, longitude, targetLat, targetLon);
 
 					if (unitBox.getSelectedItem().equals("miles")) {
