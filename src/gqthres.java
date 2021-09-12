@@ -4,8 +4,14 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Properties;
 
@@ -21,8 +27,7 @@ import org.jsoup.Jsoup;
 
 public class gqthres extends Frame implements ActionListener {
 
-	
-	//Characters for the Maidenhead locators
+	// Characters for the Maidenhead locators
 	static String[] Capitals = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",
 			"R", "S", "T", "U", "V", "W", "X" };
 	static double latComp;
@@ -30,8 +35,6 @@ public class gqthres extends Frame implements ActionListener {
 	static String coordinates;
 	static double distance;
 
-	
-	
 	// Downloading the callsign's page from qrzcq.com
 	public static String GetCoordinates(String callsign) {
 
@@ -45,16 +48,15 @@ public class gqthres extends Frame implements ActionListener {
 			// TODO Auto-generated catch block
 		}
 
-			csindex = html.indexOf("Latitude");
-			String latqrzcq = html.substring(csindex + 45, csindex+54);
-			csindex=html.indexOf("Longitude");
-			String lonqrzcq = html.substring(csindex +46, csindex+55);
-			
-		return latqrzcq+","+lonqrzcq;
+		csindex = html.indexOf("Latitude");
+		String latqrzcq = html.substring(csindex + 45, csindex + 54);
+		csindex = html.indexOf("Longitude");
+		String lonqrzcq = html.substring(csindex + 46, csindex + 55);
+
+		return latqrzcq + "," + lonqrzcq;
 	}
 
-	
-	//Convert locator to coordinates
+	// Convert locator to coordinates
 	public static String Convert(String inputStr) {
 
 		// Split the entered locator into the separate characters
@@ -108,8 +110,7 @@ public class gqthres extends Frame implements ActionListener {
 
 	}
 
-	
-	//Convert coordinats to locator
+	// Convert coordinats to locator
 	public static String CoordsToLoc(double lat, double lon) {
 
 		lon = lon + 180;
@@ -127,8 +128,7 @@ public class gqthres extends Frame implements ActionListener {
 
 	}
 
-	
-	//Calculate the distance form home to the locator/coordinates/callsign
+	// Calculate the distance form home to the locator/coordinates/callsign
 	public static double Distance(double qthlat, double qthlon, double latComp, double longComp) {
 
 		double latCompRad = Math.toRadians(latComp);
@@ -145,11 +145,8 @@ public class gqthres extends Frame implements ActionListener {
 		return distance;
 	}
 
-	
-	
-	
-	//GUI elements
-	
+	// GUI elements
+
 	JFrame frame = new JFrame();
 	JPanel panel = new JPanel();
 
@@ -176,11 +173,9 @@ public class gqthres extends Frame implements ActionListener {
 	JComboBox InputBox = new JComboBox(inputArray);
 	JComboBox unitBox = new JComboBox(unitArray);
 
-	
-	
 	public gqthres() {
 
-		//Initializing the GUI elements
+		// Initializing the GUI elements
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.insets = new Insets(5, 5, 5, 5);
@@ -195,7 +190,7 @@ public class gqthres extends Frame implements ActionListener {
 		qrzButton = new JButton("Show on qrz.com");
 		qrzcqButton = new JButton("Show on qrzcq.com");
 
-		//Aligning the elements in the window
+		// Aligning the elements in the window
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		panel.add(InputBox, gbc);
@@ -255,17 +250,17 @@ public class gqthres extends Frame implements ActionListener {
 
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		String homePath = System.getProperty("user.home");
-		ImageIcon icon = new ImageIcon(homePath+"/gqthres/icon.png");
+		ImageIcon icon = new ImageIcon(homePath + "/gqthres/icon.png");
 		frame.setIconImage(icon.getImage());
-		
-		//Preparing the GUI with the user's preferences (gqthres.properties)
+
+		// Preparing the GUI with the user's preferences (gqthres.properties)
 		FileInputStream fis = null;
 		Properties prop = new Properties();
-		
+
 		try {
-			fis = new FileInputStream(homePath+"/gqthres/gqthres.properties");
+			fis = new FileInputStream(homePath + "/gqthres/gqthres.properties");
 			prop.load(fis);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -277,21 +272,26 @@ public class gqthres extends Frame implements ActionListener {
 		String valueType = prop.getProperty("valueType");
 		String unitType = prop.getProperty("unitType");
 		String browser = prop.getProperty("browser");
+		String logging = prop.getProperty("logging");
 
 		InputBox.setSelectedItem(valueType);
 		unitBox.setSelectedItem(unitType);
 
-		
 		mapButton.setEnabled(false);
 		qrzButton.setEnabled(false);
 		qrzcqButton.setEnabled(false);
 
 		startButton.addActionListener(new ActionListener() {
 
-			
-			
-			//Defining actions for the buttons
-			
+			// String dateLog;
+			String locatorLog;
+			String coordsLog;
+
+			LocalDate date = LocalDate.now();
+			LocalTime time = LocalTime.now();
+
+			// Defining actions for the buttons
+
 			@Override
 			public void actionPerformed(ActionEvent startAction) {
 
@@ -322,8 +322,9 @@ public class gqthres extends Frame implements ActionListener {
 					mapButton.setEnabled(true);
 					qrzButton.setEnabled(false);
 					qrzcqButton.setEnabled(false);
+
 				}
-				
+
 				if (InputBox.getSelectedItem().equals("Callsign")) {
 					String coordsInput = GetCoordinates(inputField.getText());
 
@@ -344,7 +345,7 @@ public class gqthres extends Frame implements ActionListener {
 					qrzButton.setEnabled(true);
 					qrzcqButton.setEnabled(true);
 				}
-				
+
 				if (InputBox.getSelectedItem().equals("Coordinates")) {
 					String target[] = inputField.getText().split(",");
 					double targetLat = Double.parseDouble(target[0]);
@@ -362,6 +363,38 @@ public class gqthres extends Frame implements ActionListener {
 					mapButton.setEnabled(true);
 					qrzButton.setEnabled(false);
 					qrzcqButton.setEnabled(false);
+
+				}
+
+				if (logging.equals("yes")) {
+
+					if (InputBox.getSelectedItem().equals("Locator")) {
+						locatorLog = inputField.getText().toUpperCase();
+					} else {
+						locatorLog = locOutField.getText();
+					}
+					;
+
+					if (InputBox.getSelectedItem().equals("Coordinates")) {
+						coordsLog = inputField.getText();
+					} else {
+						coordsLog = coordOutField.getText();
+					}
+					;
+
+					String outputLog = date + "," + time + "," + inputField.getText().toUpperCase() + ","
+							+ InputBox.getSelectedItem() + "," + locatorLog + "," + coordsLog + ","
+							+ distOutField.getText().toUpperCase() + "," + unitBox.getSelectedItem();
+
+					try {
+						BufferedWriter bw = Files.newBufferedWriter(Paths.get(homePath + "/gqthres/gqthres.log"),
+								StandardOpenOption.APPEND);
+						bw.write(outputLog + "\n");
+						bw.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		});
