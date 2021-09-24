@@ -4,7 +4,7 @@ Click [here](https://github.com/BaumGuard/qthres) to get to the former command l
 <br />
 ## Functions<br />
 - Conversion between Maidenhead locators and coordinates
-- Retrieving the position of a callsign from [qrzcq.com](https://qrz.com)
+- Retrieving the position and nationality of a callsign from [qrzcq.com](https://qrz.com)
 - Calculating the distance (km or miles) between you and the callsign/locator
 - Displaying the direct distance on [luftlinie.org](https://luftlinie.org)
 - Opening the web instance of the callsign on [qrz.com](https://qrz.com) or [qrzcq.com](https://qrzcq.com)
