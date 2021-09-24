@@ -39,11 +39,14 @@ public class gqthres extends Frame implements ActionListener {
 	public static String GetCoordinates(String callsign) {
 
 		String url = "https://www.qrzcq.com/call/" + callsign;
+
 		String html = null;
+
 		int csindex;
 
 		try {
 			html = Jsoup.connect(url).get().html();
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 		}
@@ -54,6 +57,28 @@ public class gqthres extends Frame implements ActionListener {
 		String lonqrzcq = html.substring(csindex + 46, csindex + 55);
 
 		return latqrzcq + "," + lonqrzcq;
+	}
+
+	public static String GetCountry(String callsign) {
+		String urlqrz = "https://www.qrz.com/db/" + callsign;
+		String htmlqrz = null;
+
+		try {
+			htmlqrz = Jsoup.connect(urlqrz).get().html();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		int csindex;
+
+		csindex = htmlqrz.indexOf("DX Atlas for:");
+		String country = htmlqrz.substring(csindex + 14, csindex + 50);
+		csindex = country.indexOf(">");
+		country = country.substring(0, csindex - 1);
+
+		return country;
+
 	}
 
 	// Convert locator to coordinates
@@ -154,6 +179,7 @@ public class gqthres extends Frame implements ActionListener {
 	JLabel locOutLabel;
 	JLabel coordOutLabel;
 	JLabel distLabel;
+	JLabel countryLabel = new JLabel("Country");
 
 	// Buttons
 	JButton startButton = new JButton("OK");
@@ -166,6 +192,7 @@ public class gqthres extends Frame implements ActionListener {
 	JTextField locOutField = new JTextField();
 	JTextField coordOutField = new JTextField();
 	JTextField distOutField = new JTextField();
+	JTextField countryField = new JTextField();
 
 	// Dropdown menu
 	String inputArray[] = { "Locator", "Callsign", "Coordinates" };
@@ -204,15 +231,23 @@ public class gqthres extends Frame implements ActionListener {
 		panel.add(startButton, gbc);
 
 		gbc.gridx = 0;
+		gbc.gridy = 2;
+		panel.add(countryLabel, gbc);
+
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		panel.add(countryField, gbc);
+
+		gbc.gridx = 0;
 		gbc.gridy = 1;
 		panel.add(locOutLabel, gbc);
 
 		gbc.gridx = 0;
-		gbc.gridy = 2;
+		gbc.gridy = 3;
 		panel.add(coordOutLabel, gbc);
 
 		gbc.gridx = 0;
-		gbc.gridy = 3;
+		gbc.gridy = 4;
 		panel.add(distLabel, gbc);
 
 		gbc.gridx = 1;
@@ -220,27 +255,27 @@ public class gqthres extends Frame implements ActionListener {
 		panel.add(locOutField, gbc);
 
 		gbc.gridx = 1;
-		gbc.gridy = 2;
+		gbc.gridy = 3;
 		panel.add(coordOutField, gbc);
 
 		gbc.gridx = 1;
-		gbc.gridy = 3;
+		gbc.gridy = 4;
 		panel.add(distOutField, gbc);
 
 		gbc.gridx = 2;
-		gbc.gridy = 3;
+		gbc.gridy = 4;
 		panel.add(unitBox, gbc);
 
 		gbc.gridx = 0;
-		gbc.gridy = 4;
+		gbc.gridy = 5;
 		panel.add(mapButton, gbc);
 
 		gbc.gridx = 1;
-		gbc.gridy = 4;
+		gbc.gridy = 5;
 		panel.add(qrzButton, gbc);
 
 		gbc.gridx = 2;
-		gbc.gridy = 4;
+		gbc.gridy = 5;
 		panel.add(qrzcqButton, gbc);
 
 		frame.add(panel);
@@ -298,9 +333,11 @@ public class gqthres extends Frame implements ActionListener {
 				locOutField.setText("");
 				coordOutField.setText("");
 				distOutField.setText("");
+				countryField.setText("");
 				locOutField.setEnabled(true);
 				coordOutField.setEnabled(true);
 				distOutField.setEnabled(true);
+				countryField.setEnabled(true);
 
 				if (InputBox.getSelectedItem().equals("Locator")) {
 
@@ -318,6 +355,7 @@ public class gqthres extends Frame implements ActionListener {
 					distOutField.setText(Double.toString(dist));
 
 					locOutField.setEnabled(false);
+					countryField.setEnabled(false);
 
 					mapButton.setEnabled(true);
 					qrzButton.setEnabled(false);
@@ -341,6 +379,8 @@ public class gqthres extends Frame implements ActionListener {
 					}
 					distOutField.setText(Double.toString(dist));
 
+					countryField.setText(GetCountry(inputField.getText()));
+
 					mapButton.setEnabled(true);
 					qrzButton.setEnabled(true);
 					qrzcqButton.setEnabled(true);
@@ -359,6 +399,7 @@ public class gqthres extends Frame implements ActionListener {
 					distOutField.setText(Double.toString(dist));
 					locOutField.setText(CoordsToLoc(targetLat, targetLon));
 					coordOutField.setEnabled(false);
+					countryField.setEnabled(false);
 
 					mapButton.setEnabled(true);
 					qrzButton.setEnabled(false);
@@ -383,8 +424,8 @@ public class gqthres extends Frame implements ActionListener {
 					;
 
 					String outputLog = date + "," + time + "," + inputField.getText().toUpperCase() + ","
-							+ InputBox.getSelectedItem() + "," + locatorLog + "," + coordsLog + ","
-							+ distOutField.getText().toUpperCase() + "," + unitBox.getSelectedItem();
+							+ InputBox.getSelectedItem() + "," + locatorLog + "," + countryField.getText() + ","
+							+ coordsLog + "," + distOutField.getText().toUpperCase() + "," + unitBox.getSelectedItem();
 
 					try {
 						BufferedWriter bw = Files.newBufferedWriter(Paths.get(homePath + "/gqthres/gqthres.log"),
