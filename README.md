@@ -20,8 +20,7 @@ Download `gqthres` as a zip archive or use `git` to download it:<br />
 ## Installation (Windows)<br />
 Download and install [Java](https://www.java.com/de/download/) on your Windows PC if it's not installed yet.<br />
 Download the [zip archive](https://github.com/BaumGuard/gqthres/archive/refs/heads/main.zip) and extract it into your home folder in `C:\Users\yourname`.<br />
-Rename the folder to `gqthres` and enter it.<br />
-Doubleclick `gqthres.jar`.
+Rename the folder to `gqthres`.
 ## Configuration<br />
 Before you start `gqthres` for the first time you have to enter your coordinates in the config file `gqthres.properties`<br />
 You can also change the other settings according to your preferences.
