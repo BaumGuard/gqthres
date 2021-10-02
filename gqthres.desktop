@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Gqthres
+GenericName=Gqthres
+Type=Application
+Comment="Locator/Callsign resolver"
+StartupWMClass=gqthres
+Exec=java -jar ~/gqthres/gqthres.jar
+Terminal=false
+Icon=~/gqthres/icon.png
+Categories=HamRadio;
