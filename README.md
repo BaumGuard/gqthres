@@ -18,6 +18,11 @@ Download `gqthres` as a zip archive or use `git` to download it:<br />
 `git clone https://www.github.com/BaumGuard/gqthres`<br />
 Run `install.sh` with `sudo` to install `gqthres`:<br />
 `sudo ./install.sh`<br />
+## Installation (Windows)<br />
+Download the [zip archive](https://github.com/BaumGuard/gqthres/archive/refs/heads/main.zip) and put it in to your home directory in `C:\Users\yourname`.<br />
+Rename the folder `gqthres-main` to `gqthres`.<br />
+Before you start `gqthres` for the first time you have to enter your coordinates in the config file `gqthres.conf`<br />
+You can start `gqthres` by doubleclicking `gqthresWin.jar` **NOT** `gqthres.jar`!<br />
 ## Configuration<br />
 Before you start `gqthres` for the first time you have to enter your coordinates in the config file `/etc/gqthres.conf`<br />
 You can also change the other settings according to your preferences.
