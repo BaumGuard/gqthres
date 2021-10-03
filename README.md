@@ -29,8 +29,6 @@ Start `gqthres` from you program launcher or in the shell.
 
 Now you should see some output data in the three text fields. You can now click the buttons on the bottom to show the distance on a map or open the web instances of the callsign.<br />
 **Resolving callsigns only works with an internet connection!**
-## Start it from anywhere (Linux)<br />
-Copy the file `gqthres.desktop` to `/usr/share/applications`.
 ## Troubleshooting<br />
 If you have started `gqthres` by doubleclicking it you won't see any error messages, but if you have started it from the command line you will see a stacktrace there. A sign for an error are the three empty output text fields after you have entered a value and clicked `OK`.<br />
 Always enter the right value that corresponds to the item you have selected in the drop-down menu.<br />
