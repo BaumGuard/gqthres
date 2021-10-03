@@ -287,7 +287,7 @@ public class gqthres extends Frame implements ActionListener {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		String homePath = System.getProperty("user.home");
-		ImageIcon icon = new ImageIcon(homePath + "/gqthres/icon.png");
+		ImageIcon icon = new ImageIcon("/usr/share/pixmaps/gqthres.png");
 		frame.setIconImage(icon.getImage());
 
 		// Preparing the GUI with the user's preferences (gqthres.properties)
@@ -295,7 +295,7 @@ public class gqthres extends Frame implements ActionListener {
 		Properties prop = new Properties();
 
 		try {
-			fis = new FileInputStream(homePath + "/gqthres/gqthres.properties");
+			fis = new FileInputStream("/etc/gqthres.conf");
 			prop.load(fis);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -428,7 +428,7 @@ public class gqthres extends Frame implements ActionListener {
 							+ coordsLog + "," + distOutField.getText().toUpperCase() + "," + unitBox.getSelectedItem();
 
 					try {
-						BufferedWriter bw = Files.newBufferedWriter(Paths.get(homePath + "/gqthres/gqthres.log"),
+						BufferedWriter bw = Files.newBufferedWriter(Paths.get(homePath + "/.cache/gqthres/gqthres.log"),
 								StandardOpenOption.APPEND);
 						bw.write(outputLog + "\n");
 						bw.close();
@@ -452,10 +452,6 @@ public class gqthres extends Frame implements ActionListener {
 					if (user.contains("/home")) {
 						p = Runtime.getRuntime().exec(browser + " https://www.luftlinie.org/" + latitude + ","
 								+ longitude + "/" + coordOutField.getText());
-					} else {
-						p = Runtime.getRuntime()
-								.exec("C:\\/Program Files/\\/Mozilla Firefox/\\firefox.exe https://www.luftlinie.org/"
-										+ latitude + "," + longitude + "/" + coordOutField.getText());
 					}
 					;
 				} catch (IOException e) {
@@ -475,10 +471,6 @@ public class gqthres extends Frame implements ActionListener {
 				try {
 					if (user.contains("/home")) {
 						p = Runtime.getRuntime().exec(browser + " https://www.qrz.com/db/" + inputField.getText());
-					} else {
-						p = Runtime.getRuntime()
-								.exec("C:\\/Program Files/\\/Mozilla Firefox/\\firefox.exe https://www.qrzcq.com/call/"
-										+ inputField.getText());
 					}
 					;
 				} catch (IOException e) {
@@ -498,10 +490,6 @@ public class gqthres extends Frame implements ActionListener {
 				try {
 					if (user.contains("/home")) {
 						p = Runtime.getRuntime().exec(browser + " https://www.qrzcq.com/call/" + inputField.getText());
-					} else {
-						p = Runtime.getRuntime()
-								.exec("C:\\/Program Files/\\/Mozilla Firefox/\\firefox.exe https://www.qrzcq.com/call/"
-										+ inputField.getText());
 					}
 					;
 				} catch (IOException e) {
