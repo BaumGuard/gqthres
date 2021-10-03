@@ -12,21 +12,17 @@ Click [here](https://github.com/BaumGuard/qthres) to get to the former command l
 - Java (JRE)
 - Firefox/Chromium (Only Firefox on Windows)
 ## Installation (Linux)<br />
-Go to your home directory:<br />
-`cd ~`<br />
-Download `gqthres` as a zip archive or use `git` to download it:<br />
-`git clone https://www.github.com/BaumGuard/gqthres`
+**Note:** If you are using Arch Linux or its derivates you can also install `gqthres` from the [AUR](https://aur.archlinux.org/packages/gqthres).<br />
 <br />
-## Installation (Windows)<br />
-Download and install [Java](https://www.java.com/de/download/) on your Windows PC if it's not installed yet.<br />
-Download the [zip archive](https://github.com/BaumGuard/gqthres/archive/refs/heads/main.zip) and extract it into your home folder in `C:\Users\yourname`.<br />
-Rename the folder to `gqthres`.
+Download `gqthres` as a zip archive or use `git` to download it:<br />
+`git clone https://www.github.com/BaumGuard/gqthres`<br />
+Run `install.sh` with `sudo` to install `gqthres`:<br />
+`sudo ./install.sh`<br />
 ## Configuration<br />
-Before you start `gqthres` for the first time you have to enter your coordinates in the config file `gqthres.properties`<br />
+Before you start `gqthres` for the first time you have to enter your coordinates in the config file `/etc/gqthres.conf`<br />
 You can also change the other settings according to your preferences.
 ## How to use<br />
-You can either start `gqthres` by doubleclicking `gqthres.jar` or by starting it from the command line:<br />
-`java -jar gqthres.jar`
+Start `gqthres` from you program launcher or in the shell.
 1. Choose in the drop-down menu whether you want to enter a locator, a callsign or coordinates
 2. Enter the locator/callsign/coordinates in the text field
 3. Press `OK`
