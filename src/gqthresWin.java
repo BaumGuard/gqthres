@@ -287,7 +287,7 @@ public class gqthresWin extends Frame implements ActionListener {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		String homePath = System.getProperty("user.home");
-		ImageIcon icon = new ImageIcon(homePath+"/gqthres/gqthres.png");
+		ImageIcon icon = new ImageIcon(homePath + "/gqthres/gqthres.png");
 		frame.setIconImage(icon.getImage());
 
 		// Preparing the GUI with the user's preferences (gqthres.properties)
@@ -295,7 +295,7 @@ public class gqthresWin extends Frame implements ActionListener {
 		Properties prop = new Properties();
 
 		try {
-			fis = new FileInputStream(homePath+"/gqthres/gqthres.conf");
+			fis = new FileInputStream(homePath + "/gqthres/gqthres.conf");
 			prop.load(fis);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -449,13 +449,11 @@ public class gqthresWin extends Frame implements ActionListener {
 
 				Process p;
 				try {
-					if (user.contains("/home")) {
 
-						p = Runtime.getRuntime()
-								.exec("C:\\/Program Files/\\/Mozilla Firefox/\\firefox.exe https://www.luftlinie.org/"
-										+ latitude + "," + longitude + "/" + coordOutField.getText());
-					}
-					;
+					p = Runtime.getRuntime()
+							.exec("C:\\/Program Files/\\/Mozilla Firefox/\\firefox.exe https://www.luftlinie.org/"
+									+ latitude + "," + longitude + "/" + coordOutField.getText());
+
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -471,13 +469,9 @@ public class gqthresWin extends Frame implements ActionListener {
 
 				Process p;
 				try {
-					if (user.contains("/home")) {
-
-						p = Runtime.getRuntime()
-								.exec("C:\\/Program Files/\\/Mozilla Firefox/\\firefox.exe https://www.qrzcq.com/call/"
-										+ inputField.getText());
-					}
-					;
+					p = Runtime.getRuntime()
+							.exec("C:\\/Program Files/\\/Mozilla Firefox/\\firefox.exe https://www.qrz.com/db/"
+									+ inputField.getText());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -493,13 +487,10 @@ public class gqthresWin extends Frame implements ActionListener {
 
 				Process p;
 				try {
-					if (user.contains("/home")) {
+					p = Runtime.getRuntime()
+							.exec("C:\\/Program Files/\\/Mozilla Firefox/\\firefox.exe https://www.qrzcq.com/call/"
+									+ inputField.getText());
 
-						p = Runtime.getRuntime()
-								.exec("C:\\/Program Files/\\/Mozilla Firefox/\\firefox.exe https://www.qrzcq.com/call/"
-										+ inputField.getText());
-					}
-					;
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
