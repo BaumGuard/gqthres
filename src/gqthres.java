@@ -449,11 +449,8 @@ public class gqthres extends Frame implements ActionListener {
 
 				Process p;
 				try {
-					if (user.contains("/home")) {
-						p = Runtime.getRuntime().exec(browser + " https://www.luftlinie.org/" + latitude + ","
-								+ longitude + "/" + coordOutField.getText());
-					}
-					;
+					p = Runtime.getRuntime().exec(browser + " https://www.luftlinie.org/" + latitude + "," + longitude
+							+ "/" + coordOutField.getText());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -469,10 +466,7 @@ public class gqthres extends Frame implements ActionListener {
 
 				Process p;
 				try {
-					if (user.contains("/home")) {
-						p = Runtime.getRuntime().exec(browser + " https://www.qrz.com/db/" + inputField.getText());
-					}
-					;
+					p = Runtime.getRuntime().exec(browser + " https://www.qrz.com/db/" + inputField.getText());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -488,10 +482,7 @@ public class gqthres extends Frame implements ActionListener {
 
 				Process p;
 				try {
-					if (user.contains("/home")) {
-						p = Runtime.getRuntime().exec(browser + " https://www.qrzcq.com/call/" + inputField.getText());
-					}
-					;
+					p = Runtime.getRuntime().exec(browser + " https://www.qrzcq.com/call/" + inputField.getText());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
