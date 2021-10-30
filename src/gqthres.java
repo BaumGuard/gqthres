@@ -378,8 +378,10 @@ public class gqthres extends Frame implements ActionListener {
 						dist = Math.round((dist * 0.6214) * 100) / 100.0;
 					}
 					distOutField.setText(Double.toString(dist));
-
-					countryField.setText(GetCountry(inputField.getText()));
+					
+					try {
+					countryField.setText(GetCountry(inputField.getText()));}
+					catch (Exception e) {e.printStackTrace();};
 
 					mapButton.setEnabled(true);
 					qrzButton.setEnabled(true);
