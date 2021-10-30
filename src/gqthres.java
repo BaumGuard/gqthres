@@ -381,7 +381,7 @@ public class gqthres extends Frame implements ActionListener {
 					
 					try {
 					countryField.setText(GetCountry(inputField.getText()));}
-					catch (Exception e) {e.printStackTrace();};
+					catch (Exception e) {};
 
 					mapButton.setEnabled(true);
 					qrzButton.setEnabled(true);
