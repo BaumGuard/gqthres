@@ -15,6 +15,7 @@ import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Properties;
 
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -36,7 +37,7 @@ public class gqthres extends Frame implements ActionListener {
 	static double distance;
 
 	// Downloading the callsign's page from qrzcq.com
-	public static String GetCoordinates(String callsign) {
+	public static String[] GetCoordinates(String callsign) {
 
 		String url = "https://www.qrzcq.com/call/" + callsign;
 
@@ -55,31 +56,23 @@ public class gqthres extends Frame implements ActionListener {
 		String latqrzcq = html.substring(csindex + 45, csindex + 54);
 		csindex = html.indexOf("Longitude");
 		String lonqrzcq = html.substring(csindex + 46, csindex + 55);
-
-		return latqrzcq + "," + lonqrzcq;
-	}
-
-	public static String GetCountry(String callsign) {
-		String urlqrz = "https://www.qrz.com/db/" + callsign;
-		String htmlqrz = null;
-
-		try {
-			htmlqrz = Jsoup.connect(urlqrz).get().html();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		csindex = html.indexOf("</b><br");
+		String extCountry = html.substring(csindex + 10, csindex + 70);
+		
+		if (extCountry.indexOf("<br>") != extCountry.lastIndexOf("<br>")) {
+			extCountry=extCountry.replaceFirst("<br>", "");
 		}
+		
+		String country = extract(extCountry,"<br>","</p>");
+		country = country.replace("amp;", "");
+		country = country.replace(",", " -");
+		
+		String [] outputArray = {latqrzcq,lonqrzcq,country};
 
-		int csindex;
-
-		csindex = htmlqrz.indexOf("DX Atlas for:");
-		String country = htmlqrz.substring(csindex + 14, csindex + 50);
-		csindex = country.indexOf(">");
-		country = country.substring(0, csindex - 1);
-
-		return country;
-
+		return outputArray;
 	}
+
 
 	// Convert locator to coordinates
 	public static String Convert(String inputStr) {
@@ -169,6 +162,18 @@ public class gqthres extends Frame implements ActionListener {
 
 		return distance;
 	}
+	
+	
+	public static String extract (String input, String char1, String char2) {
+		
+		int ind1 = input.indexOf(char1);
+		int ind2 = input.indexOf(char2);
+		int l1 = char1.length();
+		
+		String output = input.substring(ind1+l1, ind2);
+		
+		return output;
+	}
 
 	// GUI elements
 
@@ -197,8 +202,8 @@ public class gqthres extends Frame implements ActionListener {
 	// Dropdown menu
 	String inputArray[] = { "Locator", "Callsign", "Coordinates" };
 	String unitArray[] = { "km", "miles" };
-	JComboBox InputBox = new JComboBox(inputArray);
-	JComboBox unitBox = new JComboBox(unitArray);
+	JComboBox<String> InputBox = new JComboBox<>(inputArray);
+	JComboBox<String> unitBox = new JComboBox<>(unitArray);
 
 	public gqthres() {
 
@@ -315,20 +320,23 @@ public class gqthres extends Frame implements ActionListener {
 		mapButton.setEnabled(false);
 		qrzButton.setEnabled(false);
 		qrzcqButton.setEnabled(false);
+		
+		inputField.requestFocusInWindow();
+		
+		AbstractAction action = new AbstractAction()
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e)
+		    {
 
-		startButton.addActionListener(new ActionListener() {
+				// String dateLog;
+				String locatorLog;
+				String coordsLog;
 
-			// String dateLog;
-			String locatorLog;
-			String coordsLog;
+				LocalDate date = LocalDate.now();
+				LocalTime time = LocalTime.now();
 
-			LocalDate date = LocalDate.now();
-			LocalTime time = LocalTime.now();
-
-			// Defining actions for the buttons
-
-			@Override
-			public void actionPerformed(ActionEvent startAction) {
+				// Defining actions for the buttons
 
 				locOutField.setText("");
 				coordOutField.setText("");
@@ -364,24 +372,24 @@ public class gqthres extends Frame implements ActionListener {
 				}
 
 				if (InputBox.getSelectedItem().equals("Callsign")) {
-					String coordsInput = GetCoordinates(inputField.getText());
+					String [] coordsInput = GetCoordinates(inputField.getText());
 
-					String target[] = coordsInput.split(",");
-					double targetLat = Double.parseDouble(target[0]);
-					double targetLon = Double.parseDouble(target[1]);
+
+					double targetLat = Double.parseDouble(coordsInput[0]);
+					double targetLon = Double.parseDouble(coordsInput[1]);
 
 					locOutField.setText(CoordsToLoc(targetLat, targetLon));
-					coordOutField.setText(coordsInput);
+					coordOutField.setText(coordsInput[0]+","+coordsInput[1]);
 					double dist = Distance(latitude, longitude, targetLat, targetLon);
 
 					if (unitBox.getSelectedItem().equals("miles")) {
 						dist = Math.round((dist * 0.6214) * 100) / 100.0;
 					}
 					distOutField.setText(Double.toString(dist));
-					
+
 					try {
-					countryField.setText(GetCountry(inputField.getText()));}
-					catch (Exception e) {};
+					countryField.setText(coordsInput[2]);}
+					catch (Exception e1) {};
 
 					mapButton.setEnabled(true);
 					qrzButton.setEnabled(true);
@@ -434,15 +442,19 @@ public class gqthres extends Frame implements ActionListener {
 								StandardOpenOption.APPEND);
 						bw.write(outputLog + "\n");
 						bw.close();
-					} catch (IOException e) {
+					} catch (IOException e1) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						e1.printStackTrace();
 					}
 				}
-			}
-		});
+		    }
+		};
 
-		String user = System.getProperty("user.home");
+		inputField.addActionListener(action);
+		startButton.addActionListener(action);
+{
+			
+		}
 
 		mapButton.addActionListener(new ActionListener() {
 
