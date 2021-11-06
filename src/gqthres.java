@@ -19,6 +19,7 @@ import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,6 +29,10 @@ import org.jsoup.Jsoup;
 
 public class gqthres extends Frame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// Characters for the Maidenhead locators
 	static String[] Capitals = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",
 			"R", "S", "T", "U", "V", "W", "X" };
@@ -185,6 +190,7 @@ public class gqthres extends Frame implements ActionListener {
 	JLabel coordOutLabel;
 	JLabel distLabel;
 	JLabel countryLabel = new JLabel("Country");
+	JLabel warningLabel = new JLabel("");
 
 	// Buttons
 	JButton startButton = new JButton("OK");
@@ -205,6 +211,9 @@ public class gqthres extends Frame implements ActionListener {
 	JComboBox<String> InputBox = new JComboBox<>(inputArray);
 	JComboBox<String> unitBox = new JComboBox<>(unitArray);
 
+	
+
+	
 	public gqthres() {
 
 		// Initializing the GUI elements
@@ -282,10 +291,12 @@ public class gqthres extends Frame implements ActionListener {
 		gbc.gridx = 2;
 		gbc.gridy = 5;
 		panel.add(qrzcqButton, gbc);
+		
 
 		frame.add(panel);
 		frame.setTitle("Gqthres");
 		frame.pack();
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 
 		frame.setResizable(false);
@@ -313,6 +324,15 @@ public class gqthres extends Frame implements ActionListener {
 		String unitType = prop.getProperty("unitType");
 		String browser = prop.getProperty("browser");
 		String logging = prop.getProperty("logging");
+		
+		if (latitude==0 && longitude==0) {
+	        JDialog warnDialog = new JDialog();
+	        warnDialog.setTitle("First start");
+	        warnDialog.setSize(400,50);
+	        warnDialog.setModal(true);
+	        warnDialog.add(new JLabel("Please enter your coordinates in /etc/gqthres.conf."));
+	        warnDialog.setLocationRelativeTo(null);
+	        warnDialog.setVisible(true);}
 
 		InputBox.setSelectedItem(valueType);
 		unitBox.setSelectedItem(unitType);
@@ -511,6 +531,8 @@ public class gqthres extends Frame implements ActionListener {
 		// TODO Auto-generated method stub
 
 		new gqthres();
+		
+
 	}
 
 	@Override
