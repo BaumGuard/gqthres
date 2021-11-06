@@ -19,6 +19,7 @@ import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -286,6 +287,7 @@ public class gqthresWin extends Frame implements ActionListener {
 		frame.add(panel);
 		frame.setTitle("Gqthres");
 		frame.pack();
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 
 		frame.setResizable(false);
@@ -313,6 +315,15 @@ public class gqthresWin extends Frame implements ActionListener {
 		String unitType = prop.getProperty("unitType");
 		String browser = prop.getProperty("browser");
 		String logging = prop.getProperty("logging");
+		
+		if (latitude==0 && longitude==0) {
+	        JDialog warnDialog = new JDialog();
+	        warnDialog.setTitle("First start");
+	        warnDialog.setSize(400,50);
+	        warnDialog.setModal(true);
+	        warnDialog.add(new JLabel("Please enter your coordinates in /etc/gqthres.conf."));
+	        warnDialog.setLocationRelativeTo(null);
+	        warnDialog.setVisible(true);}
 
 		InputBox.setSelectedItem(valueType);
 		unitBox.setSelectedItem(unitType);
