@@ -3,17 +3,18 @@
 cd src
 javac -cp jsoup-1.13.1.jar gqthres.java
 jar cfm gqthres.jar manifest *.class
-cp gqthres.jar /usr/lib/gqthres
+scp gqthres.jar /usr/lib/gqthres
+scp jsoup-1.13.1.jar /usr/lib/gqthres
 
 cd..
 
 mkdir -p /usr/lib/gqthres
 
 
-cp gqthres /usr/bin/gqthres
-cp gqthres.conf /etc
-cp gqthres.desktop /usr/share/applications
-cp gqthres.png /usr/share/pixmaps
+scp gqthres /usr/bin/gqthres
+scp gqthres.conf /etc
+scp gqthres.desktop /usr/share/applications
+scp gqthres.png /usr/share/pixmaps
 
 chmod +x /usr/bin/gqthres
 
