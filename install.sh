@@ -6,7 +6,7 @@ jar cfm gqthres.jar manifest *.class
 scp gqthres.jar /usr/lib/gqthres
 scp jsoup-1.13.1.jar /usr/lib/gqthres
 
-cd..
+cd ..
 
 mkdir -p /usr/lib/gqthres
 
