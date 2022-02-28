@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir -p /usr/lib/gqthres
+
 cd src
 javac -cp jsoup-1.13.1.jar gqthres.java
 jar cfm gqthres.jar manifest *.class
@@ -7,9 +9,6 @@ scp gqthres.jar /usr/lib/gqthres
 scp jsoup-1.13.1.jar /usr/lib/gqthres
 
 cd ..
-
-mkdir -p /usr/lib/gqthres
-
 
 scp gqthres /usr/bin/gqthres
 scp gqthres.conf /etc
