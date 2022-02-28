@@ -474,8 +474,15 @@ public class gqthresWin extends Frame implements ActionListener {
 
 				Process p;
 				try {
+					if (coordOutField.getText().isEmpty()) {
 					p = Runtime.getRuntime().exec("C:\\/Program Files/\\/Mozilla Firefox/\\firefox.exe" + " https://www.luftlinie.org/" + latitude + "," + longitude
-							+ "/" + coordOutField.getText());
+							+ "/" + inputField.getText());
+					}
+					
+					else {
+						p = Runtime.getRuntime().exec("C:\\/Program Files/\\/Mozilla Firefox/\\firefox.exe" + " https://www.luftlinie.org/" + latitude + "," + longitude
+								+ "/" + coordOutField.getText());
+					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
