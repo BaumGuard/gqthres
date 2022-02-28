@@ -170,7 +170,7 @@ public class gqthres extends Frame implements ActionListener {
 	
 	
 	public static String extract (String input, String char1, String char2) {
-		
+
 		int ind1 = input.indexOf(char1);
 		int ind2 = input.indexOf(char2);
 		int l1 = char1.length();
@@ -483,8 +483,15 @@ public class gqthres extends Frame implements ActionListener {
 
 				Process p;
 				try {
+					
+					if (coordOutField.getText().isEmpty()) {
 					p = Runtime.getRuntime().exec(browser + " https://www.luftlinie.org/" + latitude + "," + longitude
-							+ "/" + coordOutField.getText());
+							+ "/" + inputField.getText());
+					
+					} else {
+						p = Runtime.getRuntime().exec(browser + " https://www.luftlinie.org/" + latitude + "," + longitude
+								+ "/" + coordOutField.getText());
+					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
