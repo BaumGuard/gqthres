@@ -61,7 +61,7 @@ public class gqthresWin extends Frame implements ActionListener {
 		String lonqrzcq = html.substring(csindex + 46, csindex + 55);
 		
 		csindex = html.indexOf("</b><br");
-		String extCountry = html.substring(csindex + 10, csindex + 80);
+		String extCountry = html.substring(csindex + 10, csindex + 90);
 		
 		if (extCountry.indexOf("<br>") != extCountry.lastIndexOf("<br>")) {
 			extCountry=extCountry.replaceFirst("<br>", "");
