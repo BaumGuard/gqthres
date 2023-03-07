@@ -2,6 +2,7 @@
 
 mkdir -p /usr/lib/gqthres
 
+echo "For which user do you want to install gqthres?:"
 read $username
 
 cd src
