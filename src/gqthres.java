@@ -63,6 +63,17 @@ public class gqthres extends Frame implements ActionListener {
 		csindex = html.indexOf("Longitude");
 		String lonqrzcq = html.substring(csindex + 46, csindex + 55);
 		
+		// Removing possible letters for latitude and longitude in the variables
+		latqrzcq = latqrzcq.replace(" ","");
+		latqrzcq = latqrzcq.replace("N","");
+		latqrzcq = latqrzcq.replace("S","");
+
+		lonqrzcq = lonqrzcq.replace(" ","");
+		lonqrzcq = lonqrzcq.replace("W","");
+		lonqrzcq = lonqrzcq.replace("O","");
+		lonqrzcq = lonqrzcq.replace("E","");
+		
+		
 		csindex = html.indexOf("</b><br");
 		String extCountry = html.substring(csindex + 10, csindex + 90);
 		
