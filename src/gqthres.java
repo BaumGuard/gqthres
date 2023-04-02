@@ -67,11 +67,15 @@ public class gqthres extends Frame implements ActionListener {
 		latqrzcq = latqrzcq.replace(" ","");
 		latqrzcq = latqrzcq.replace("N","");
 		latqrzcq = latqrzcq.replace("S","");
+		latqrzcq = latqrzcq.replace("<","");
+		latqrzcq = latqrzcq.replace(">","");
 
 		lonqrzcq = lonqrzcq.replace(" ","");
 		lonqrzcq = lonqrzcq.replace("W","");
 		lonqrzcq = lonqrzcq.replace("O","");
 		lonqrzcq = lonqrzcq.replace("E","");
+		lonqrzcq = lonqrzcq.replace("<","");
+		lonqrzcq = lonqrzcq.replace(">","");
 		
 		
 		csindex = html.indexOf("</b><br");
