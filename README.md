@@ -1,7 +1,5 @@
 # gqthres
 Resolver for locators, callsigns and coordinates<br />
-Click [here](https://github.com/BaumGuard/qthres) to get to the former command line tool `qthres`.
-<br />
 ## Functions<br />
 - Conversion between Maidenhead locators and coordinates
 - Retrieving the position and nationality of a callsign from [qrzcq.com](https://qrz.com)
@@ -12,10 +10,14 @@ Click [here](https://github.com/BaumGuard/qthres) to get to the former command l
 - Java (JRE)
 - Firefox/Chromium (Only Firefox on Windows)
 ## Installation (Linux)<br />
-Download `gqthres` as a zip archive or use `git` to download it:<br />
-`git clone https://www.github.com/BaumGuard/gqthres`<br />
-Run `install.sh` with `sudo` to install `gqthres`:<br />
-`sudo ./install.sh`<br />
+Download `gqthres` as a zip archive or use `git` to download it:
+```
+git clone https://www.github.com/BaumGuard/gqthres
+```
+Run `install.sh` with `sudo` to install `gqthres`:
+```
+sudo ./install.sh
+```
 ## Installation (Windows)<br />
 Download `Source Code (zip)` and `gqthresWin.jar` from the [latest release](https://github.com/BaumGuard/gqthres/releases).<br />
 Unzip the source package and rename the folder to "gqthres". Move `gqthresWin.jar` into the gqthres folder.<br />
